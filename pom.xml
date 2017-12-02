@@ -30,7 +30,7 @@
     <artifactId>maven-assembly-plugin</artifactId>
     <version>3.0.0</version>
     <configuration>
-        <finalName>test</finalName>
+        <finalName>windowsCapture</finalName>
         <descriptorRefs>
             <!-- 依存するリソースをすべてjarに同梱する -->
             <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -40,6 +40,7 @@
                 <mainClass>jp.tuyoyun.WindowsCapture</mainClass>
             </manifest>
         </archive>
+        <appendAssemblyId>false</appendAssemblyId>
     </configuration>
     <executions>
         <execution>
