@@ -25,7 +25,7 @@ public class WindowsCapture {
 	public static void main(String[] args) {
 
 		// 入力チェック
-		if (args.length != 1) {
+		if (args.length != 1 && args.length != 2) {
 			throw new IllegalArgumentException("引数の数が異なります（usage:javaw capture.ScreenCaptureTask dir interval）");
 		}
 
