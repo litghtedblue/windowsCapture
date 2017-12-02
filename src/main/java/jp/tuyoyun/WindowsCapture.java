@@ -1,4 +1,4 @@
-package jp.tuyoyun.windowsCapture;
+package jp.tuyoyun;
 
 import java.awt.AWTException;
 import java.awt.Color;
