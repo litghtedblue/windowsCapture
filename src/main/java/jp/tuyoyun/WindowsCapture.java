@@ -15,8 +15,16 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+
 public class WindowsCapture {
 	static String fileName = "capture.jpg";
+	static String uploadHost = "";
 
 	/** ファイルのフォーマット */
 	private static SimpleDateFormat textFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -25,7 +33,7 @@ public class WindowsCapture {
 	public static void main(String[] args) {
 
 		// 入力チェック
-		if (args.length != 1 && args.length != 2) {
+		if (args.length != 1 && args.length != 2 && args.length != 3) {
 			throw new IllegalArgumentException("引数の数が異なります（usage:javaw capture.ScreenCaptureTask dir interval）");
 		}
 
@@ -36,6 +44,7 @@ public class WindowsCapture {
 		}
 		if (args.length > 1) {
 			fileName = args[1];
+			uploadHost = args[2];
 		}
 		run();
 	}
@@ -82,6 +91,13 @@ public class WindowsCapture {
 
 		ImageIO.write(image, "jpg", file);
 		System.out.println("出力完了:" + file.getAbsolutePath());
+
+		HttpPost request = new HttpPost(uploadHost);
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpEntity entity = MultipartEntityBuilder.create().addBinaryBody("file", file).build();
+		request.setEntity(entity);
+		HttpResponse response = client.execute(request);
+		System.out.println(response.getStatusLine().getStatusCode());
 	}
 
 }
